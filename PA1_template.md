@@ -37,6 +37,31 @@ if(file.exists("activity.csv")) {
 }
 ```
 
+Let's take a look at what is in the activity table:
+
+```r
+    activity_tbl
+```
+
+```
+## Source: local data frame [17,568 x 3]
+## 
+##    steps       date interval
+## 1     NA 2012-10-01        0
+## 2     NA 2012-10-01        5
+## 3     NA 2012-10-01       10
+## 4     NA 2012-10-01       15
+## 5     NA 2012-10-01       20
+## 6     NA 2012-10-01       25
+## 7     NA 2012-10-01       30
+## 8     NA 2012-10-01       35
+## 9     NA 2012-10-01       40
+## 10    NA 2012-10-01       45
+## ..   ...        ...      ...
+```
+
+There are three columns, indicating the `steps` taken on a given `date` during a given five-minute `interval`. Judging by the looks of the first column, there are some `NA` values in the data set.
+
 ## What is mean total number of steps taken per day?
 We would like to compute the total number of steps taken each day. The `group_by` function from `dplyr` allows us to group the data set by `date`. Using `summarise`, we can easily report the sum of steps grouped by date. `NA` values are removed in the sum:
 
@@ -56,7 +81,7 @@ The data table `daily_step_tbl` now contains the total number of steps for each 
         labs(x = "Total steps", y = "Frequency")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
 We can also compute the mean and median for the total number of steps taken each day, as well as the minimum and the maximum values and the first and third quartiles, using the `summary` function:
 
@@ -96,7 +121,7 @@ The data table `interval_step_tbl` now contains the average number of steps for 
         labs(x = "Time (minutes after midnight)", y = "Average number of steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 
 Let's find the 5-minute interval which, on average, contains the maximum number of steps. We can do this using `arrange` to sort our data table in descending order by average number of steps:
 
@@ -156,7 +181,7 @@ Let's make a histogram of the data set after imputing, the same way we did befor
         labs(x = "Total steps", y = "Frequency")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
 
 There are now much fewer outliers on the left-hand side of our histogram. We can summarize this data set:
 
@@ -172,12 +197,12 @@ There are now much fewer outliers on the left-hand side of our histogram. We can
 The median is not changed by much, but the mean is over a thousand steps larger! Perhaps all the missing values  were skewing the data set too low, or perhaps imputing missing data is skewing our perceived steps per day a bit higher.
 
 ## Are there differences in activity patterns between weekdays and weekends?
-We would like to see trends in the daily activity pattern from day to day for weekdays versus weekends. The `group_by` function from `dplyr` also allows us to group the data set by two variables, `interval` and a factor variable `isweekend` that tells us whether a day is a weekday or a weekend. Using `summarise`, we can easily report the average steps grouped by `interval` and `isweekend`. We'd also like to add the time of day for any given interval:
+We would like to see trends in the daily activity pattern from day to day for weekdays versus weekends, using the imputed data set `activity_tbl_2` from the previous step. The `group_by` function from `dplyr` also allows us to group the data set by two variables, `interval` and a factor variable `isweekend` that tells us whether a day is a weekday or a weekend. Using `summarise`, we can easily report the average steps grouped by `interval` and `isweekend`. We'd also like to add the time of day for any given interval:
 
 ```r
     weekends_array <- c('Saturday', 'Sunday')
 
-    weekday_step_tbl <- activity_tbl %>%
+    weekday_step_tbl <- activity_tbl_2 %>%
         mutate(date = as.Date(date),
                Day = factor((weekdays(date) %in% weekends_array),
                                   levels=c(FALSE, TRUE),
@@ -198,6 +223,6 @@ Using `facet_grid`, we can make a two-panel plot comparing weekday versus weeken
         labs(x = "Time (minutes after midnight)", y = "Average number of steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-15-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-16-1.png) 
 
 The most notable difference is much higher activity earlier in weekdays than in weekends. Looks like somebody likes to sleep in a little on the weekends :)
