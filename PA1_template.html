@@ -128,7 +128,7 @@ img {
 </div>
 <div id="what-is-the-average-daily-activity-pattern" class="section level2">
 <h2>What is the average daily activity pattern?</h2>
-<p>We would like to see trends in the daily activity pattern from day to day. The <code>group_by</code> function from <code>dplyr</code> also allows us to group the data set by <code>interval</code>. Using <code>summarise</code>, we can easily report the average steps grouped by interval. <code>NA</code> values are removed in the average. We’d also like to add the time of day for any given interval:</p>
+<p>We would like to see trends in the daily activity pattern from day to day. The <code>group_by</code> function from <code>dplyr</code> also allows us to group the data set by <code>interval</code>. Using <code>summarise</code>, we can easily report the average steps grouped by interval. <code>NA</code> values are removed in the average.</p>
 <pre class="r"><code>    interval_step_tbl &lt;- activity_tbl %&gt;%
         group_by(interval) %&gt;%
         summarise(average_steps = mean(steps,na.rm = TRUE))</code></pre>
@@ -184,7 +184,7 @@ img {
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
-<p>We would like to see trends in the daily activity pattern from day to day for weekdays versus weekends, using the imputed data set <code>activity_tbl_2</code> from the previous step. The <code>group_by</code> function from <code>dplyr</code> also allows us to group the data set by two variables, <code>interval</code> and a factor variable <code>isweekend</code> that tells us whether a day is a weekday or a weekend. Using <code>summarise</code>, we can easily report the average steps grouped by <code>interval</code> and <code>isweekend</code>. We’d also like to add the time of day for any given interval:</p>
+<p>We would like to see trends in the daily activity pattern from day to day for weekdays versus weekends, using the imputed data set <code>activity_tbl_2</code> from the previous step. The <code>group_by</code> function from <code>dplyr</code> also allows us to group the data set by two variables, <code>interval</code> and a factor variable <code>Day</code> that tells us whether a day is a weekday or a weekend. Using <code>summarise</code>, we can easily report the average steps grouped by <code>interval</code> and <code>Day</code>:</p>
 <pre class="r"><code>    weekends_array &lt;- c('Saturday', 'Sunday')
 
     weekday_step_tbl &lt;- activity_tbl_2 %&gt;%

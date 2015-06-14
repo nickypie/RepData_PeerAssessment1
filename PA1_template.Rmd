@@ -61,7 +61,7 @@ Now we can remove the data table `daily_step_tbl` because we won't need it any l
 ```
 
 ## What is the average daily activity pattern?
-We would like to see trends in the daily activity pattern from day to day. The `group_by` function from `dplyr` also allows us to group the data set by `interval`. Using `summarise`, we can easily report the average steps grouped by interval. `NA` values are removed in the average. We'd also like to add the time of day for any given interval:
+We would like to see trends in the daily activity pattern from day to day. The `group_by` function from `dplyr` also allows us to group the data set by `interval`. Using `summarise`, we can easily report the average steps grouped by interval. `NA` values are removed in the average.
 ```{r}
     interval_step_tbl <- activity_tbl %>%
         group_by(interval) %>%
@@ -118,7 +118,7 @@ There are now much fewer outliers on the left-hand side of our histogram. We can
 The median is not changed by much, but the mean is over a thousand steps larger! Perhaps all the missing values  were skewing the data set too low, or perhaps imputing missing data is skewing our perceived steps per day a bit higher.
 
 ## Are there differences in activity patterns between weekdays and weekends?
-We would like to see trends in the daily activity pattern from day to day for weekdays versus weekends, using the imputed data set `activity_tbl_2` from the previous step. The `group_by` function from `dplyr` also allows us to group the data set by two variables, `interval` and a factor variable `isweekend` that tells us whether a day is a weekday or a weekend. Using `summarise`, we can easily report the average steps grouped by `interval` and `isweekend`. We'd also like to add the time of day for any given interval:
+We would like to see trends in the daily activity pattern from day to day for weekdays versus weekends, using the imputed data set `activity_tbl_2` from the previous step. The `group_by` function from `dplyr` also allows us to group the data set by two variables, `interval` and a factor variable `Day` that tells us whether a day is a weekday or a weekend. Using `summarise`, we can easily report the average steps grouped by `interval` and `Day`:
 ```{r}
     weekends_array <- c('Saturday', 'Sunday')
 
